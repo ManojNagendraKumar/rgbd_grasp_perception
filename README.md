@@ -120,6 +120,31 @@ A confident wrong answer is the dangerous failure for a robot, because nothing d
 from a correct one. The fix is real training data (GraspNet provides object masks and boxes for its real
 frames) or an open vocabulary detector, and training and scoring on real images is the next step.
 
+### The full pipeline on the real frame
+
+`scripts/09_real_frame_3d.py` runs detection and 3D localisation together on the same real frame. The frame
+comes with the camera intrinsics and the annotated 6D pose of every object, but not with a camera to robot
+transform, so the table plane is fitted first and used as the base frame. The 3D step does not use the class,
+so every box is still placed in 3D and compared with the annotated object whose position falls inside it.
+
+![Detection and 3D localisation on a real frame](results/real_frame_3d.png)
+
+| Box (predicted class, score) | Real object inside | 3D distance to its annotated position |
+| --- | --- | --- |
+| teddy 0.60 | toy animal | 13.8 mm |
+| lego_brick 0.92 | white bottle | 15.1 mm |
+| mug 0.54 | blue cup | 17.2 mm |
+| lego_brick 0.68 | cracker box | 36.7 mm |
+| lego_brick 0.87 | part of the cracker box (no annotated position inside) | not measured |
+
+- **Median distance on the 4 matched boxes: 16 mm**, against 8.6 mm in simulation. With four objects,
+  and annotated positions that are model origins rather than exact centres, this is a rough check, not a
+  benchmark.
+- **The 37 mm case is a box problem, not a 3D problem.** The box covers only one printed cracker on the
+  cracker box, so the position found is the centre of that patch, not of the whole box. A wrong box gives a
+  wrong grasp target even when the 3D step works.
+- **Tracking is not checked here**, because the example is a single image.
+
 ## How to run
 
 ```bash
@@ -134,6 +159,7 @@ python scripts/05_generate_tracking_sequences.py
 python scripts/06_evaluate_tracking.py         # ByteTrack vs SORT style baseline
 python scripts/07_benchmark_latency.py         # CPU latency, PyTorch vs ONNX Runtime
 python scripts/08_sim_vs_real.py               # simulated vs real frame, detector on a real frame
+python scripts/09_real_frame_3d.py             # detection and 3D localisation on a real frame
 ```
 
 The trained weights are included as `models/best.pt`, so training can be skipped. Scripts 04, 06 and 07 still need
