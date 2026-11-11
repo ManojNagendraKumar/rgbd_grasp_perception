@@ -4,7 +4,8 @@ Perception for a collaborative robot arm: find objects on a work surface, locate
 robot's base frame, and keep its identity over time, so a grasp planner knows what to pick and where.
 
 Everything runs in a simulated workcell (PyBullet: Franka Panda arm, table, five object classes, RGBD camera),
-which provides exact ground truth for every stage, so each stage is measured on its own.
+which provides exact ground truth for every stage, so each stage is measured on its own. A real RealSense
+frame from a robot arm is used to show what simulation leaves out (see Simulation versus real data).
 
 ![Detections with 3D positions in the robot base frame](results/example_detections_3d.png)
 
@@ -92,6 +93,33 @@ The example below is a failure case shared by both trackers. The arm passes over
 ONNX Runtime was not faster on this CPU (0.93x the speed of PyTorch at batch 1), and its boxes differ from PyTorch's by at most 0.63 px. Numbers are for a 2 core CPU without a GPU.
 
 
+## Simulation versus real data
+
+Everything above is measured in simulation. To show what that leaves out, `scripts/08_sim_vs_real.py` puts a
+simulated test frame next to a real one: the public example frame of GraspNet 1Billion (Fang et al., CVPR 2020),
+recorded by a RealSense camera mounted on a robot arm and downloaded from the
+[`graspnet-baseline`](https://github.com/graspnet/graspnet-baseline) repository at run time.
+
+![A simulated and a real RGBD frame](results/sim_vs_real.png)
+
+The real frame has what the simulator leaves out: everyday objects touching each other, shiny and dark
+surfaces, the robot's own hardware in view, and no depth value at 10% of the pixels.
+
+The same script runs the detector, trained only on simulated images, on the real frame. None of the real
+objects belong to its five classes, so there is nothing to score, but how it behaves is the point:
+
+![The simulation trained detector on a simulated and a real frame](results/sim_detector_on_real_frame.png)
+
+- **Two guesses are reasonable:** the grey toy animal becomes "teddy" (0.60) and the blue cup becomes "mug" (0.54).
+- **Three are confidently wrong:** a white bottle is called "lego_brick" at 0.92, and the printed crackers on
+  the box become two more Lego bricks (0.87 and 0.68).
+- **The rest get no box:** the banana, drill, can, spray bottle and small blue part, as expected for a detector
+  that only knows five classes.
+
+A confident wrong answer is the dangerous failure for a robot, because nothing downstream can tell it apart
+from a correct one. The fix is real training data (GraspNet provides object masks and boxes for its real
+frames) or an open vocabulary detector, and training and scoring on real images is the next step.
+
 ## How to run
 
 ```bash
@@ -105,6 +133,7 @@ python scripts/04_evaluate_detection_3d.py     # mAP on test scenes and 3D error
 python scripts/05_generate_tracking_sequences.py
 python scripts/06_evaluate_tracking.py         # ByteTrack vs SORT style baseline
 python scripts/07_benchmark_latency.py         # CPU latency, PyTorch vs ONNX Runtime
+python scripts/08_sim_vs_real.py               # simulated vs real frame, detector on a real frame
 ```
 
 The trained weights are included as `models/best.pt`, so training can be skipped. Scripts 04, 06 and 07 still need
@@ -128,7 +157,8 @@ camera poses are never seen in training.
 
 - **Simulation, not a real robot.** Images come from PyBullet's TinyRenderer with randomised lighting and
   colours and a stereo depth noise model. Real images are harder (reflections, motion blur, sensor artefacts),
-  so detection scores here are an upper bound.
+  so detection scores here are an upper bound. One real frame is checked, without a score (see Simulation
+  versus real data).
 - **Hand eye corners are simulated.** Board corners are obtained by projecting the board with the true camera
   and adding 0.3 px noise, which stands in for a corner detector. PnP, AX = XB and the error analysis are real.
 - **3D ground truth** is each object's bounding box centre from the simulator; for irregular shapes (duck,
@@ -140,9 +170,10 @@ camera poses are never seen in training.
 
 ## Next steps
 
-1. YOLOv8 segmentation masks for cleaner per object depth.
-2. Track in 3D in the robot base frame, so a moving wrist camera does not break tracks.
-3. ROS2 nodes and a real RGBD camera, then compare against these simulation numbers.
+1. Train and score on real images (GraspNet), and measure how much accuracy drops from simulation to real.
+2. YOLOv8 segmentation masks for cleaner per object depth.
+3. Track in 3D in the robot base frame, so a moving wrist camera does not break tracks.
+4. ROS2 nodes and a real RGBD camera, then compare against these simulation numbers.
 
 ## Companion project
 
