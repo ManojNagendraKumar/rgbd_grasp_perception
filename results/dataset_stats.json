@@ -1,0 +1,14 @@
+{
+  "train": {
+    "images": 600,
+    "boxes": 3030
+  },
+  "val": {
+    "images": 120,
+    "boxes": 580
+  },
+  "test": {
+    "images": 150,
+    "boxes": 757
+  }
+}

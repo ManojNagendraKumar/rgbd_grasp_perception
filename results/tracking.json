@@ -1,0 +1,87 @@
+{
+  "sort_style_baseline": {
+    "crossing": {
+      "num_switches": 0.0,
+      "num_fragmentations": 28.0,
+      "mota": 0.926875,
+      "idf1": 0.9623188405797102,
+      "num_misses": 106.0,
+      "num_false_positives": 11.0,
+      "num_objects": 1600.0
+    },
+    "occluder": {
+      "num_switches": 15.0,
+      "num_fragmentations": 36.0,
+      "mota": 0.8526244952893675,
+      "idf1": 0.8607954545454546,
+      "num_misses": 180.0,
+      "num_false_positives": 24.0,
+      "num_objects": 1486.0
+    },
+    "fast": {
+      "num_switches": 16.0,
+      "num_fragmentations": 39.0,
+      "mota": 0.916875,
+      "idf1": 0.7618739903069467,
+      "num_misses": 111.0,
+      "num_false_positives": 6.0,
+      "num_objects": 1600.0
+    },
+    "all": {
+      "num_switches": 31.0,
+      "num_fragmentations": 103.0,
+      "mota": 0.899914639351259,
+      "idf1": 0.8618012422360248,
+      "num_misses": 397.0,
+      "num_false_positives": 41.0,
+      "num_objects": 4686.0
+    }
+  },
+  "bytetrack": {
+    "crossing": {
+      "num_switches": 4.0,
+      "num_fragmentations": 13.0,
+      "mota": 0.9375,
+      "idf1": 0.920584498094028,
+      "num_misses": 74.0,
+      "num_false_positives": 22.0,
+      "num_objects": 1600.0
+    },
+    "occluder": {
+      "num_switches": 13.0,
+      "num_fragmentations": 22.0,
+      "mota": 0.8660834454912517,
+      "idf1": 0.8686797752808989,
+      "num_misses": 155.0,
+      "num_false_positives": 31.0,
+      "num_objects": 1486.0
+    },
+    "fast": {
+      "num_switches": 17.0,
+      "num_fragmentations": 34.0,
+      "mota": 0.9225,
+      "idf1": 0.7594202898550725,
+      "num_misses": 101.0,
+      "num_false_positives": 6.0,
+      "num_objects": 1600.0
+    },
+    "all": {
+      "num_switches": 34.0,
+      "num_fragmentations": 69.0,
+      "mota": 0.9097311139564661,
+      "idf1": 0.8493572134930227,
+      "num_misses": 330.0,
+      "num_false_positives": 59.0,
+      "num_objects": 4686.0
+    }
+  },
+  "id_switch_reduction_percent": -9.67741935483871,
+  "setup": {
+    "sequences": 12,
+    "frames_per_sequence": 80,
+    "detector_conf_floor": 0.05,
+    "high_thresh": 0.5,
+    "low_thresh": 0.1,
+    "match": "IoU >= 0.5 (motmetrics)"
+  }
+}

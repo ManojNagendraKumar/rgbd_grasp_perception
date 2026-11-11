@@ -1,0 +1,165 @@
+{
+  "setup": {
+    "pixel_noise_px": 0.3,
+    "board": "7 x 6 corners, 25 mm squares",
+    "trials_per_point": 20
+  },
+  "median_error_by_method_and_pose_count": {
+    "Tsai": {
+      "4": {
+        "rot_deg_median": 0.7342223175734367,
+        "trans_mm_median": 7.686309931772582
+      },
+      "6": {
+        "rot_deg_median": 0.37724630397586034,
+        "trans_mm_median": 5.170654439832498
+      },
+      "8": {
+        "rot_deg_median": 0.44999502465682617,
+        "trans_mm_median": 4.331072198728663
+      },
+      "10": {
+        "rot_deg_median": 0.3412014269945661,
+        "trans_mm_median": 3.945413345616339
+      },
+      "15": {
+        "rot_deg_median": 0.29614858589651427,
+        "trans_mm_median": 2.6392941530358556
+      },
+      "20": {
+        "rot_deg_median": 0.2569605755038436,
+        "trans_mm_median": 2.362170600089235
+      },
+      "30": {
+        "rot_deg_median": 0.2095877634442053,
+        "trans_mm_median": 1.9257064525334053
+      }
+    },
+    "Park": {
+      "4": {
+        "rot_deg_median": 0.7865159725316268,
+        "trans_mm_median": 7.895437238962314
+      },
+      "6": {
+        "rot_deg_median": 0.5633136434787381,
+        "trans_mm_median": 6.039481142631281
+      },
+      "8": {
+        "rot_deg_median": 0.44041833858093254,
+        "trans_mm_median": 4.384525615644236
+      },
+      "10": {
+        "rot_deg_median": 0.3427167411087938,
+        "trans_mm_median": 3.957552167381613
+      },
+      "15": {
+        "rot_deg_median": 0.27139042946803893,
+        "trans_mm_median": 2.597764167235442
+      },
+      "20": {
+        "rot_deg_median": 0.20736824266114126,
+        "trans_mm_median": 2.4346522222460383
+      },
+      "30": {
+        "rot_deg_median": 0.1731692521933843,
+        "trans_mm_median": 1.9498962410697063
+      }
+    },
+    "Horaud": {
+      "4": {
+        "rot_deg_median": 0.7871922765734605,
+        "trans_mm_median": 7.891063591209723
+      },
+      "6": {
+        "rot_deg_median": 0.5665465507544928,
+        "trans_mm_median": 6.05112277620119
+      },
+      "8": {
+        "rot_deg_median": 0.4432150836303219,
+        "trans_mm_median": 4.397106747511419
+      },
+      "10": {
+        "rot_deg_median": 0.34514251946433316,
+        "trans_mm_median": 3.980632387238341
+      },
+      "15": {
+        "rot_deg_median": 0.2725451234953028,
+        "trans_mm_median": 2.601175338211764
+      },
+      "20": {
+        "rot_deg_median": 0.21192817360057284,
+        "trans_mm_median": 2.4410353404962093
+      },
+      "30": {
+        "rot_deg_median": 0.1735131295541506,
+        "trans_mm_median": 1.9558278903220125
+      }
+    },
+    "Andreff": {
+      "4": {
+        "rot_deg_median": 0.7535023012058837,
+        "trans_mm_median": 10.227828654468421
+      },
+      "6": {
+        "rot_deg_median": 0.5411228565458217,
+        "trans_mm_median": 9.58907909615246
+      },
+      "8": {
+        "rot_deg_median": 0.4314606961609162,
+        "trans_mm_median": 7.390285880990613
+      },
+      "10": {
+        "rot_deg_median": 0.3309356499285533,
+        "trans_mm_median": 6.652178271993651
+      },
+      "15": {
+        "rot_deg_median": 0.2576015004312066,
+        "trans_mm_median": 6.012926642390661
+      },
+      "20": {
+        "rot_deg_median": 0.190133553084964,
+        "trans_mm_median": 5.490369571087937
+      },
+      "30": {
+        "rot_deg_median": 0.179660549925715,
+        "trans_mm_median": 4.609542110789171
+      }
+    },
+    "Daniilidis": {
+      "4": {
+        "rot_deg_median": 0.54349064812017,
+        "trans_mm_median": 6.4928159289147125
+      },
+      "6": {
+        "rot_deg_median": 0.35174002837047474,
+        "trans_mm_median": 3.1844821750929064
+      },
+      "8": {
+        "rot_deg_median": 0.4046999384393376,
+        "trans_mm_median": 2.5899206563317367
+      },
+      "10": {
+        "rot_deg_median": 0.3130253410074003,
+        "trans_mm_median": 2.416386813883782
+      },
+      "15": {
+        "rot_deg_median": 0.25043534612964374,
+        "trans_mm_median": 1.9669658196106563
+      },
+      "20": {
+        "rot_deg_median": 0.2087400152850728,
+        "trans_mm_median": 1.6371373858539924
+      },
+      "30": {
+        "rot_deg_median": 0.17697185181059982,
+        "trans_mm_median": 1.2111645744068893
+      }
+    }
+  },
+  "calibration_used_downstream": {
+    "method": "Tsai",
+    "poses": 15,
+    "rot_deg": 0.4040957918863557,
+    "trans_mm": 2.3487203529105782
+  }
+}

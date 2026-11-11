@@ -1,0 +1,24 @@
+{
+  "hardware": "2 CPU cores, no GPU",
+  "imgsz": 512,
+  "pytorch_batch1": {
+    "ms_per_image_mean": 45.54876564995993,
+    "ms_per_image_p50": 45.51575749997028,
+    "ms_per_image_p90": 50.32719129990255,
+    "images_per_second": 21.95449175692162
+  },
+  "pytorch_batch8": {
+    "ms_per_image_mean": 40.50416736250213,
+    "ms_per_image_p50": 40.0498736875079,
+    "ms_per_image_p90": 42.22378978747088,
+    "images_per_second": 24.688817598699192
+  },
+  "onnxruntime_batch1": {
+    "ms_per_image_mean": 48.840588450070754,
+    "ms_per_image_p50": 48.433167500206764,
+    "ms_per_image_p90": 51.586137299864276,
+    "images_per_second": 20.474773784150656
+  },
+  "onnx_speedup_batch1": 0.9326006728302215,
+  "onnx_vs_pytorch_max_box_diff_px": 0.63214111328125
+}

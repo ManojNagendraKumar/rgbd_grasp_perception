@@ -1,0 +1,11 @@
+# Python 3.11
+numpy>=1.26
+scipy>=1.11
+opencv-python>=4.8,<5            # OpenCV 5 python wheels do not expose calibrateHandEye (ultralytics needs opencv-python)
+matplotlib>=3.8
+pybullet==3.2.7
+torch>=2.2
+ultralytics>=8.1
+motmetrics>=1.4
+onnx
+onnxruntime
