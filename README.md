@@ -3,11 +3,20 @@
 Perception for a collaborative robot arm: find objects on a work surface, locate each one in 3D in the
 robot's base frame, and keep its identity over time, so a grasp planner knows what to pick and where.
 
-Everything runs in a simulated workcell (PyBullet: Franka Panda arm, table, five object classes, RGBD camera),
-which provides exact ground truth for every stage, so each stage is measured on its own. A real RealSense
-frame from a robot arm is used to show what simulation leaves out (see Simulation versus real data).
+![Detection and 3D localisation on a real frame](results/real_frame_3d.png)
 
-![Detections with 3D positions in the robot base frame](results/example_detections_3d.png)
+*The full pipeline on a real RealSense frame recorded by a camera on a robot arm (GraspNet 1Billion): detected
+boxes, the 3D positions found (cyan) and the annotated object positions (red). The median distance is
+16 mm on the 4 matched boxes. Details in [Simulation versus real data](#simulation-versus-real-data).*
+
+![A simulated and a real RGBD frame](results/sim_vs_real.png)
+
+*Top: a frame from this project's simulated dataset. Bottom: the real frame, with clutter, shiny surfaces and
+missing depth that the simulator does not produce.*
+
+The main results below are measured in a simulated workcell (PyBullet: Franka Panda arm, table, five object
+classes, RGBD camera), which provides exact ground truth for every stage, so each stage is measured on its own.
+The real frame above shows what simulation leaves out.
 
 ## Pipeline
 
@@ -59,6 +68,8 @@ Measured on 724 matched detections. The last two rows separate the error sources
 
 ![Error by lifting strategy](results/lifting_error_by_method.png)
 
+![Detections with 3D positions in the robot base frame](results/example_detections_3d.png)
+
 ### Tracking (12 sequences x 80 frames, same detector and Kalman filter for both trackers)
 
 | Condition | Tracker | ID switches | Fragmentations | MOTA | IDF1 |
@@ -100,9 +111,7 @@ simulated test frame next to a real one: the public example frame of GraspNet 1B
 recorded by a RealSense camera mounted on a robot arm and downloaded from the
 [`graspnet-baseline`](https://github.com/graspnet/graspnet-baseline) repository at run time.
 
-![A simulated and a real RGBD frame](results/sim_vs_real.png)
-
-The real frame has what the simulator leaves out: everyday objects touching each other, shiny and dark
+In that comparison (second figure at the top of this page), the real frame has what the simulator leaves out: everyday objects touching each other, shiny and dark
 surfaces, the robot's own hardware in view, and no depth value at 10% of the pixels.
 
 The same script runs the detector, trained only on simulated images, on the real frame. None of the real
@@ -126,8 +135,7 @@ frames) or an open vocabulary detector, and training and scoring on real images 
 comes with the camera intrinsics and the annotated 6D pose of every object, but not with a camera to robot
 transform, so the table plane is fitted first and used as the base frame. The 3D step does not use the class,
 so every box is still placed in 3D and compared with the annotated object whose position falls inside it.
-
-![Detection and 3D localisation on a real frame](results/real_frame_3d.png)
+The result is the first figure at the top of this page.
 
 | Box (predicted class, score) | Real object inside | 3D distance to its annotated position |
 | --- | --- | --- |
